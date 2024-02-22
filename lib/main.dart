@@ -1,3 +1,4 @@
+import 'package:demo_firebase11_12/auth/controller/auth_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,7 +17,25 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: LoadingScreen(),
+    );
+  }
+}
+
+class LoadingScreen extends StatelessWidget {
+  LoadingScreen({super.key});
+  final authController = Get.put(AuthController());
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Obx(
+        () => Visibility(
+          visible: authController.loading.value,
+          child: const Center(
+            child: CircularProgressIndicator(),
+          ),
+        ),
+      ),
     );
   }
 }

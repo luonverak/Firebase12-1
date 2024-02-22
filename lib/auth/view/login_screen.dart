@@ -1,3 +1,5 @@
+import 'package:demo_firebase11_12/auth/controller/auth_controller.dart';
+import 'package:demo_firebase11_12/auth/model/auth_model.dart';
 import 'package:demo_firebase11_12/auth/view/sign_up_screen.dart';
 import 'package:demo_firebase11_12/auth/widget/input.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,6 +12,7 @@ class LoginScreen extends StatelessWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   RxBool check = true.obs;
+  final authController = Get.put(AuthController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,8 +66,18 @@ class LoginScreen extends StatelessWidget {
               const SizedBox(
                 height: 70,
               ),
-              const ButtonWidget(
-                text: 'SING IN',
+              GestureDetector(
+                onTap: () async {
+                  await authController.singInAuth(
+                    AuthModel(
+                      email: emailController.text,
+                      password: passwordController.text.trim(),
+                    ),
+                  );
+                },
+                child: const ButtonWidget(
+                  text: 'SING IN',
+                ),
               ),
               const SizedBox(
                 height: 20,

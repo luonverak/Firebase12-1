@@ -1,3 +1,5 @@
+import 'package:demo_firebase11_12/auth/controller/auth_controller.dart';
+import 'package:demo_firebase11_12/auth/model/auth_model.dart';
 import 'package:demo_firebase11_12/auth/widget/button.dart';
 import 'package:demo_firebase11_12/auth/widget/input.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,8 @@ class SignUpScreen extends StatelessWidget {
   SignUpScreen({super.key});
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final cfPasswordController = TextEditingController();
+  final authController = Get.put(AuthController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +66,7 @@ class SignUpScreen extends StatelessWidget {
                   height: 20,
                 ),
                 InputField(
-                  controller: passwordController,
+                  controller: cfPasswordController,
                   label: 'Confirm Password',
                   obscureText: false,
                   suffixIcon: IconButton(
@@ -76,8 +80,22 @@ class SignUpScreen extends StatelessWidget {
                 const SizedBox(
                   height: 60,
                 ),
-                const ButtonWidget(
-                  text: 'SING UP',
+                GestureDetector(
+                  onTap: () async {
+                    if (passwordController.text == cfPasswordController.text) {
+                      await authController.singUpAuth(
+                        AuthModel(
+                          email: emailController.text,
+                          password: passwordController.text.trim(),
+                        ),
+                      );
+                    } else {
+                      print('error');
+                    }
+                  },
+                  child: const ButtonWidget(
+                    text: 'SING UP',
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
