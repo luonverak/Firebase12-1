@@ -3,7 +3,6 @@ import 'package:demo_firebase11_12/auth/widget/input.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../widget/button.dart';
 
 class LoginScreen extends StatelessWidget {
